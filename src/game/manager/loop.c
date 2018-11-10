@@ -46,12 +46,10 @@ void game_loop(struct game_manager *gm)
         gm->state = G_RUNNING;
     }
 
-    display_map(gm->renderer, gm->map);
-    display_persons(gm);
-
     while (gm->state == G_RUNNING)
     {
-	    while (SDL_PollEvent(&event))
+
+        while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
                 gm->state = G_QUIT;
@@ -63,8 +61,8 @@ void game_loop(struct game_manager *gm)
         }
 
         update_persons_physics(gm);
-
-        SDL_RenderPresent(gm->renderer);
-        SDL_Delay(100);
+        display_map(gm->renderer, gm->map);
+        display_persons(gm);
+        SDL_RenderClear(gm->renderer);
     }
 }

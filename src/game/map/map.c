@@ -89,7 +89,6 @@ void display_map(SDL_Renderer *renderer, struct map *map)
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
     if (!texture)
         err(1, "texture texture");
-
     for (size_t y = 0; y < map->height; y++)
         for (size_t x = 0; x < map->width; x++)
         {
@@ -105,5 +104,4 @@ void display_map(SDL_Renderer *renderer, struct map *map)
             }
         }
     SDL_RenderPresent(renderer);
-    SDL_Delay(3000);
 }

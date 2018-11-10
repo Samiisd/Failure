@@ -19,8 +19,8 @@ struct person *create_person(int x, int y)
 
 void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person)
 {
-    int x = person->physics->position->x;
-    int y = person->physics->position->y;
+    float x = person->physics->position->x;
+    float y = person->physics->position->y;
 
     SDL_Surface* sprite = person->surface;
     if (!sprite)
@@ -34,8 +34,6 @@ void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person
     SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
 
     SDL_RenderCopy(renderer,texture,&src,&dest);
-
     SDL_RenderPresent(renderer);
-    SDL_Delay(3000);
 
 }

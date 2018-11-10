@@ -12,6 +12,10 @@ void physics_update(struct physic_info *info, double dt)
 
 void add_speed(struct physic_info *info, double x, double y)
 {
+    if (info->speed->x > 1)
+        info->speed->x = 1;
+    if (info->speed->y > 1)
+        info->speed->y = 1;
     info->speed->y += y;
     info->speed->x += x;
 }
