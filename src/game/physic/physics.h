@@ -17,7 +17,7 @@ struct physic_info
 };
 
 void physics_update(struct physic_info *info, double dt);
-void add_speed(struct physic_info *info, struct vector *vect);
+void add_speed(struct physic_info *info, double x, double y);
 struct physic_info *init_physics(void);
 
 #endif /* ! PHYSICS_H */
