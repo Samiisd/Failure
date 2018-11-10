@@ -23,11 +23,13 @@ static void fill_map(FILE *map_file, struct map *map)
 
     size_t h = 0;
     while ((nread = getline(&line, &len, map_file)) != -1) {
-        for (ssize_t x = 0; x < nread; x++)
+        if (h >= map->height)
+            break;
+        for (ssize_t x = 0; x < map->width && x < nread; x++)
         {
-            if(line[x] != '\n')
+            if(line[x] == '.' || line[x] == 'b')
             {
-                size_t index = x + map->width * (map->height - h);
+                size_t index = x + map->width * (map->height - h - 1);
                 map->tilde[index] = type_blk(line[x]);
             }
         }
@@ -59,8 +61,8 @@ struct map *create_map(char *file_map)
         errx(1, "failed calloc map->tilde");
     }
     map->tilde = map_tildes;
-    map->width = w/16;
-    map->height = h/16;
+    map->width = w / 16;
+    map->height = h / 16;
     fill_map(file, map);
     fclose(file);
     return map;
@@ -77,16 +79,24 @@ void display_map(SDL_Window *window, struct map *map)
     SDL_Surface* sprite = SDL_LoadBMP("./src/maps/img/blk.bmp");
     if ( sprite )
     {
-        SDL_Rect src = {sprite->w - 16, sprite->h - 16, 16, 16};
+        SDL_Rect blk = {sprite->w - 16, sprite->h - 16, 16, 16};
+        SDL_Rect empty = {200, 200, 16, 16};
+
         for (size_t y = 0; y < map->height; y++)
             for (size_t x = 0; x < map->width; x++)
                 if (get_block_type(map, x, y) == BLOCK)
                 {
-                    SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
-                    SDL_BlitSurface(sprite, &src, SDL_GetWindowSurface(window),
+                    SDL_Rect dest = {x*16, (map->height-y-1)*16, 16, 16};
+                    SDL_BlitSurface(sprite, &blk, SDL_GetWindowSurface(window),
                                     &dest);
                 }
-        SDL_UpdateWindowSurface(window);
+                else
+                {
+                    SDL_Rect dest = {x*16, (map->height-y-1)*16, 16, 16};
+                    SDL_BlitSurface(sprite, &empty, SDL_GetWindowSurface(window),
+                                    &dest);
+
+                }
     }
     else
         err(1,"failed loading sprite (%s)\n",SDL_GetError());
