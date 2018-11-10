@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <stdbool.h>
 
+#include "map/map.h"
 #include "menu.h"
 
 enum game_state
@@ -18,6 +19,7 @@ enum game_state
 struct game_manager
 {
     SDL_Window *window;
+    struct map *map;
     enum game_state state;
 };
 
@@ -26,6 +28,6 @@ static inline bool game_is_init(struct game_manager *gm)
     return gm && gm->window && gm->state != G_INIT;
 }
 
-void game_init(struct game_manager *gm, SDL_Window *window);
+void game_init(struct game_manager *gm, SDL_Window *window, char *map_path);
 void game_loop(struct game_manager *gm, SDL_Window *window);
 void game_stop(struct game_manager *gm);
