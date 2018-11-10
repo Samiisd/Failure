@@ -1,5 +1,12 @@
 [  ] Game menu
-[  ] Game State manager
-    [OK] Basic definition
-    [  ] default game loop
+    [  ] Displaying menu choices
     [  ] Event handler
+        [OK] Ability to switch on menus
+        [  ] Correctly handle game quit
+[  ] Game Manager
+    [OK] Basic definition
+    [  ] Game loop
+        [  ] Default behaviour (do nothing)
+        [  ] Ability to get back to the menu
+            [OK] ability to switch on pause menu
+            [  ] ability to stop the game and get back to menu
