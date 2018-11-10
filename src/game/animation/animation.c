@@ -92,20 +92,19 @@ struct clip *init_clip(enum perso_type perso_type, char *path)
 }
 
 /*  Creation du premier block perso  */
-SDL_Surface *anim_init(struct clip *clip)
+void anim_init(struct clip *clip)
 {
-    SDL_Surface *idle = NULL;
-    idle = SDL_CreateRGBSurface (0, clip->SHEET_WIDTH, clip->SHEET_WIDTH, 32, 0, 0, 0, 0);
+    clip->move_cur = NULL;
+    clip->move_cur = SDL_CreateRGBSurface (0, clip->SHEET_WIDTH, clip->SHEET_WIDTH, 32, 0, 0, 0, 0);
     SDL_Rect offset;
     offset.x = clip->right[clip->frame].x;
     offset.y = clip->right[clip->frame].y;
     //clip->frame++;
-    SDL_BlitSurface(clip->faces, &offset, idle, NULL);
-    return idle;
+    SDL_BlitSurface(clip->faces, &offset, clip->move_cur, NULL);
 }
 
 /*  Change le mouvement du block  */
-void anim_update(struct clip *clip, SDL_Surface *perso_move, enum state cur)
+void anim_update(struct clip *clip, enum state cur)
 {
     SDL_Rect offset;
     if (cur == LEFT)
@@ -125,5 +124,5 @@ void anim_update(struct clip *clip, SDL_Surface *perso_move, enum state cur)
         clip->frame = 0;
     }
     printf("frame: %d move; %d\n", clip->frame, cur);
-    SDL_BlitSurface(clip->faces, &offset, perso_move, NULL); // &frame &positionperso
+    SDL_BlitSurface(clip->faces, &offset, clip->move_cur, NULL); // &frame &positionperso
 }

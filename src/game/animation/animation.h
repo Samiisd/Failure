@@ -24,11 +24,12 @@ struct clip
     int nb_of_sprite;
     int frame;
     SDL_Surface *faces;
+    SDL_Surface *move_cur;
     SDL_Rect *left;
     SDL_Rect *right;
 };
 
 struct clip *init_clip(enum perso_type perso_type, char *path);
-void update_anim(struct clip *clip, SDL_Surface *perso_move, enum state cur);
+void update_anim(struct clip *clip, enum state cur);
 
 #endif /* ! ANIMATION_H */
