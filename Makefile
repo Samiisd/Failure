@@ -11,13 +11,10 @@ OBJS += $(patsubst %.c,%.o,$(wildcard src/game/person/*.c))
 	# Adding manager sources
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/manager/*.c))
 	# Adding animation sources
-CFLAGS += -Isrc/animation/
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/animation/*.c))
 	# Adding map sources
-CFLAGS += -Isrc/map/
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/map/*.c))
-	# Adding map sources
-CFLAGS += -Isrc/physic/
+	# Adding physics sources
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/physic/*.c))
 
 # Adding menu sources
@@ -25,15 +22,19 @@ CFLAGS += -Isrc/menu/
 	# Adding manager sources
 OBJS += $(patsubst %.c,%.o,$(wildcard src/menu/manager/*.c))
 
-game : $(OBJS)
+# Adding list sources
+CFLAGS += -Isrc/list
+OBJS += $(patsubst %.c,%.o,$(wildcard src/vector/*.c))
+
+best_game_ever : $(OBJS)
 	$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^
 
-all : game
+all : best_game_ever
 
-run : game
-	./game
+run : best_game_ever
+	./best_game_ever
 
 clean:
-	$(RM) $(LIB) $(OBJS) game
+	$(RM) $(LIB) $(OBJS) best_game_ever
 
 .PHONY: all run clean
