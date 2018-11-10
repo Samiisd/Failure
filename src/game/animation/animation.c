@@ -1,4 +1,4 @@
-#include "animation.h"
+#include "animation/animation.h"
 #include <stdio.h>
 
 /*  Decoupage de la feuille de sprites  */
@@ -41,6 +41,10 @@ static inline void hero_init(struct clip *clip, char *path)
     clip->nb_of_sprite = 3;
     clip->frame = 0;
     clip->faces = SDL_LoadBMP(path);
+    if (!clip->faces)
+    {
+        printf("ca merde\n");
+    }
     set_clips(clip);
 }
 
@@ -88,6 +92,7 @@ struct clip *init_clip(enum perso_type perso_type, char *path)
     {
         cloud_init(clip, path);
     }
+    printf("Done\n");
     return clip;
 }
 

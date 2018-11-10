@@ -30,6 +30,7 @@ struct clip
 };
 
 struct clip *init_clip(enum perso_type perso_type, char *path);
-void update_anim(struct clip *clip, enum state cur);
+void anim_update(struct clip *clip, enum state cur);
+void anim_init(struct clip *clip);
 
 #endif /* ! ANIMATION_H */
