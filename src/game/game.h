@@ -30,7 +30,7 @@ struct game_manager
 
 static inline bool game_is_init(struct game_manager *gm)
 {
-    return gm && gm->window && gm->state != G_INIT;
+    return gm && gm->renderer && gm->state != G_INIT;
 }
 
 static inline struct person *game_get_player(struct game_manager *gm)

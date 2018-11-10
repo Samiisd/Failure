@@ -7,9 +7,9 @@ static void delete_person_list(void *p_)
     destroy_person(p);
 }
 
-void game_init(struct game_manager *gm, SDL_Window *window, char *map_path)
+void game_init(struct game_manager *gm, SDL_Renderer *renderer, char *map_path)
 {
-    gm->window = window;
+    gm->renderer = renderer;
     gm->state = G_RUNNING;
 
     gm->persons = list_init(GAME_INIT_DEFAULT_NB_PLAYER, delete_person_list);

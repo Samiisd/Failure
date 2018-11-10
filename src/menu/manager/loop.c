@@ -3,7 +3,7 @@
 
 static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
 {
-    game_init(gm, mm->window, "./res/maps/ground.frc");
+    game_init(gm, mm->renderer, "./res/maps/ground.frc");
     list_push(gm->persons, create_person(10, 3));
 
 }
@@ -30,7 +30,7 @@ void menu_manager_loop(struct menu_manager *mm)
                 if (!game_is_init(&gm))
                     menu_init_game(mm, &gm);
 
-                game_loop(&gm, mm->window);
+                game_loop(&gm);
 
                 if (gm.state == G_PAUSE)
                     mm->cur_menu = MENU_OPTIONS;

@@ -22,7 +22,7 @@ static void update_persons_physics(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        physics_update(cur->physics, 0.1);
+        physics_update(cur->physics, 0.001);
     }
 }
 
@@ -47,7 +47,7 @@ void game_loop(struct game_manager *gm)
     }
 
     display_map(gm->renderer, gm->map);
-    display_persons(gm, window);
+    display_persons(gm);
 
     while (gm->state == G_RUNNING)
     {
@@ -65,5 +65,6 @@ void game_loop(struct game_manager *gm)
         update_persons_physics(gm);
 
         SDL_RenderPresent(gm->renderer);
+        SDL_Delay(100);
     }
 }
