@@ -1,0 +1,5 @@
+[  ] Game menu
+[  ] Game State manager
+    [OK] Basic definition
+    [  ] default game loop
+    [  ] Event handler
