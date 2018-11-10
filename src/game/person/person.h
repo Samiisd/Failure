@@ -13,5 +13,6 @@ struct person
 
 struct person *create_person(int x, int y);
 void spawn_person(SDL_Window *window, struct map *map, struct person *person);
+void destroy_person(struct person *person);
 
 #endif /* ! PERSON_H */
