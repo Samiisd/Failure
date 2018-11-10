@@ -2,13 +2,12 @@ CC = gcc
 CFLAGS += -Wall -Wextra -Werror -std=c99 -pedantic -g $(shell sdl2-config --cflags)
 LDLIBS += $(shell sdl2-config --libs)
 
-OBJS = src/game.o src/map.o src/animation.o
 OBJS = src/main.o
-
-CFLAGS += -Isrc/**
 
 # Adding game sources
 CFLAGS += -Isrc/game/
+	# Adding person sources
+OBJS += $(patsubst %.c,%.o,$(wildcard src/game/person/*.c))
 	# Adding manager sources
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/manager/*.c))
 	# Adding animation sources

@@ -1,7 +1,7 @@
 #include <err.h>
 
-#include "map.h"
-#include "person.h"
+#include "map/map.h"
+#include "person/person.h"
 
 struct person *create_person(int x, int y)
 {
@@ -20,7 +20,7 @@ struct person *create_person(int x, int y)
 
 void spawn_person(SDL_Window *window, struct map *map, struct person *person)
 {
-    SDL_Surface* sprite = SDL_LoadBMP("./src/maps/img/blk.bmp");
+    SDL_Surface* sprite = SDL_LoadBMP("./res/maps/img/blk.bmp");
     window = window;
     int x = person->physics->position->x;
     int y = person->physics->position->y;

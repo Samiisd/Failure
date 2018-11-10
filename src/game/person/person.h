@@ -1,7 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include "physics.h"
+#include "physic/physics.h"
 #include <SDL.h>
 
 struct person
