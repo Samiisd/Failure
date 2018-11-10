@@ -9,7 +9,8 @@ CFLAGS += -Isrc/**
 
 # Adding game sources
 CFLAGS += -Isrc/game/
-
+	# Adding manager sources
+OBJS += $(patsubst %.c,%.o,$(wildcard src/game/manager/*.c))
 	# Adding animation sources
 CFLAGS += -Isrc/animation/
 OBJS += $(patsubst %.c,%.o,$(wildcard src/game/animation/*.c))
