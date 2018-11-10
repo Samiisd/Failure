@@ -30,5 +30,6 @@ struct clip
 
 struct clip *init_clip(enum perso_type perso_type, char *path);
 void update_anim(struct clip *clip, SDL_Surface *perso_move, enum state cur);
+SDL_Surface *anim_init(struct clip *clip);
 
 #endif /* ! ANIMATION_H */

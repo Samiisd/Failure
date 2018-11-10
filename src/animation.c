@@ -70,6 +70,7 @@ struct clip *init_clip(enum perso_type perso_type, char *path)
     if (!clip)
     {
         warnx("struct clip not initialized in init!");
+        return NULL;
     }
 
     if (perso_type == HERO)
@@ -89,8 +90,21 @@ struct clip *init_clip(enum perso_type perso_type, char *path)
     return clip;
 }
 
+/*  Creation du premier block perso  */
+SDL_Surface *anim_init(struct clip *clip)
+{
+    SDL_Surface *idle = NULL;
+    idle = SDL_CreateRGBSurface (0, clip->SHEET_WIDTH, clip->SHEET_WIDTH, 32, 0, 0, 0, 0);
+    SDL_Rect offset;
+    offset.x = clip->right[clip->frame].x;
+    offset.y = clip->right[clip->frame].y;
+    clip->frame++;
+    SDL_BlitSurface(clip->faces, &offset, idle, NULL);
+    return idle;
+}
+
 /*  Change le mouvement du block  */
-void update_anim(struct clip *clip, SDL_Surface *perso_move, enum state cur)
+void anim_update(struct clip *clip, SDL_Surface *perso_move, enum state cur)
 {
     SDL_Rect offset;
     if (cur == LEFT)
