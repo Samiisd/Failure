@@ -9,11 +9,11 @@ struct person
 {
     struct physic_info *physics;
     float health;
+    SDL_Rect rect;
     SDL_Surface *surface;
 };
 
 struct person *create_person(int x, int y);
-void spawn_person(SDL_Window *window, struct map *map, struct person *person);
-void destroy_person(struct person *person);
+void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person);
 
 #endif /* ! PERSON_H */

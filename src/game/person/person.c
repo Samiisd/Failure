@@ -9,34 +9,33 @@ struct person *create_person(int x, int y)
     if (!p)
         err(1,"failed calloc person");
     p->health = 1;
-    p->surface = NULL;
+    p->surface = SDL_LoadBMP("./res/maps/img/blk.bmp");
     struct physic_info *phy_inf = init_physics();
     p->physics = phy_inf;
-
     p->physics->position->x = x;
     p->physics->position->y = y;
     return p;
 }
 
-void spawn_person(SDL_Window *window, struct map *map, struct person *person)
+void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person)
 {
-    SDL_Surface* sprite = SDL_LoadBMP("./res/maps/img/blk.bmp");
-    window = window;
     int x = person->physics->position->x;
     int y = person->physics->position->y;
-    if (sprite)
-    {
-        SDL_Rect src = {158, 209, 16, 16};
-        if (get_block_type(map, x, y) != BLOCK)
-        {
-            SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
-            SDL_BlitSurface(sprite, &src, SDL_GetWindowSurface(window),
-                            &dest);
 
-        }
-    }
-    else
-    {
-        err(1, "failed loading sprite (%s)",SDL_GetError());
-    }
+    SDL_Surface* sprite = person->surface;
+    if (!sprite)
+        err(1, "sprite load failed");
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
+    if (!texture)
+        err(1, "texture texture");
+
+    SDL_Rect src = {158, 209, 16, 16};
+    SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
+
+    SDL_RenderCopy(renderer,texture,&src,&dest);
+
+    SDL_RenderPresent(renderer);
+    SDL_Delay(3000);
+
 }

@@ -65,6 +65,7 @@ struct map *create_map(char *file_map)
     map->width = w / 16;
     map->height = h / 16;
     fill_map(file, map);
+    map->surface = SDL_LoadBMP("./res/maps/img/blk.bmp");
     fclose(file);
     return map;
 }
@@ -75,30 +76,34 @@ enum tilde get_block_type(struct map *map, int x, int y)
     return map->tilde[x + map->width * y];
 }
 
-void display_map(SDL_Window *window, struct map *map)
+void display_map(SDL_Renderer *renderer, struct map *map)
 {
-    SDL_Surface* sprite = SDL_LoadBMP("./res/maps/img/blk.bmp");
-    if ( sprite )
-    {
-        SDL_Rect blk = {sprite->w - 16, sprite->h - 16, 16, 16};
-        SDL_Rect empty = {200, 200, 16, 16};
+    SDL_Surface* sprite = map->surface;
+    if (!sprite)
+        err(1, "sprite load failed");
 
-        for (size_t y = 0; y < map->height; y++)
-            for (size_t x = 0; x < map->width; x++)
-                if (get_block_type(map, x, y) == BLOCK)
-                {
-                    SDL_Rect dest = {x*16, (map->height-y-1)*16, 16, 16};
-                    SDL_BlitSurface(sprite, &blk, SDL_GetWindowSurface(window),
-                                    &dest);
-                }
-                else
-                {
-                    SDL_Rect dest = {x*16, (map->height-y-1)*16, 16, 16};
-                    SDL_BlitSurface(sprite, &empty, SDL_GetWindowSurface(window),
-                                    &dest);
+    SDL_Rect blk = {sprite->w - 16, sprite->h - 16, 16, 16};
+    SDL_Rect empty = {200, 200, 16, 16};
 
-                }
-    }
-    else
-        err(1,"failed loading sprite (%s)\n",SDL_GetError());
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
+    if (!texture)
+        err(1, "texture texture");
+
+    for (size_t y = 0; y < map->height; y++)
+        for (size_t x = 0; x < map->width; x++)
+        {
+            SDL_Rect dest = {x * 16, (map->height - y - 1) * 16, 16, 16};
+            if (get_block_type(map, x, y) == BLOCK)
+            {
+                SDL_RenderCopy(renderer,texture,&blk,&dest);
+
+            }
+            else
+            {
+                SDL_RenderCopy(renderer,texture,&empty,&dest);
+            }
+        }
+    SDL_RenderPresent(renderer);
+    SDL_Delay(3000);
 }
