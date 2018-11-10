@@ -26,17 +26,17 @@ static void update_persons_physics(struct game_manager *gm)
     }
 }
 
-static void display_persons(struct game_manager *gm, SDL_Window *window)
+static void display_persons(struct game_manager *gm)
 {
     size_t nb_persons = list_size(gm->persons);
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        spawn_person(window, gm->map, cur);
+        spawn_person(gm->renderer, gm->map, cur);
     }
 }
 
-void game_loop(struct game_manager *gm, SDL_Window *window)
+void game_loop(struct game_manager *gm)
 {
     SDL_Event event;
 
@@ -46,10 +46,8 @@ void game_loop(struct game_manager *gm, SDL_Window *window)
         gm->state = G_RUNNING;
     }
 
-    display_map(window, gm->map);
+    display_map(gm->renderer, gm->map);
     display_persons(gm, window);
-
-    SDL_UpdateWindowSurface(window);
 
     while (gm->state == G_RUNNING)
     {
@@ -65,5 +63,7 @@ void game_loop(struct game_manager *gm, SDL_Window *window)
         }
 
         update_persons_physics(gm);
+
+        SDL_RenderPresent(gm->renderer);
     }
 }

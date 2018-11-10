@@ -5,6 +5,7 @@ static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
 {
     game_init(gm, mm->window, "./res/maps/ground.frc");
     list_push(gm->persons, create_person(10, 3));
+
 }
 
 void menu_manager_loop(struct menu_manager *mm)

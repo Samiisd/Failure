@@ -22,7 +22,7 @@ enum game_state
 
 struct game_manager
 {
-    SDL_Window *window;
+    SDL_Renderer *renderer;
     struct map *map;
     struct list *persons;
     enum game_state state;
@@ -38,6 +38,6 @@ static inline struct person *game_get_player(struct game_manager *gm)
     return list_at(gm->persons, 0);
 }
 
-void game_init(struct game_manager *gm, SDL_Window *window, char *map_path);
-void game_loop(struct game_manager *gm, SDL_Window *window);
+void game_init(struct game_manager *gm, SDL_Renderer *renderer, char *map_path);
+void game_loop(struct game_manager *gm);
 void game_stop(struct game_manager *gm);
