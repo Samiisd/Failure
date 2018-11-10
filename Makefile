@@ -24,7 +24,7 @@ OBJS += $(patsubst %.c,%.o,$(wildcard src/menu/manager/*.c))
 
 # Adding list sources
 CFLAGS += -Isrc/list
-OBJS += $(patsubst %.c,%.o,$(wildcard src/vector/*.c))
+OBJS += $(patsubst %.c,%.o,$(wildcard src/list/*.c))
 
 best_game_ever : $(OBJS)
 	$(CC) $(CFLAGS) $(LDLIBS) -o $@ $^

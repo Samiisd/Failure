@@ -7,14 +7,15 @@ static void init_game_window(struct menu_manager *mm)
     SDL_GetCurrentDisplayMode(0, &DM);
 
     // Creating the game window (in full screen)
-    mm->window = SDL_CreateWindow(
-        "SUPER SAMI !",
-        SDL_WINDOWPOS_UNDEFINED,
-        SDL_WINDOWPOS_UNDEFINED,
-        640,
-        480,
-        SDL_WINDOW_OPENGL
-        );
+    int res = SDL_CreateWindowAndRenderer(
+                640,
+                480,
+                SDL_WINDOW_SHOWN,
+                &(mm->window),
+                &(mm->renderer)
+                );
+
+    assert(res == 0);
 
     if (!mm->window)
         errx(1, "Could not create window: %s\n", SDL_GetError());

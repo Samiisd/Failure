@@ -2,6 +2,7 @@
 #define PERSON_H
 
 #include "physic/physics.h"
+#include "map/map.h"
 #include <SDL.h>
 
 struct person

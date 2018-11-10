@@ -16,6 +16,7 @@ enum menu_type
 
 struct menu_manager
 {
+    SDL_Renderer *renderer;
     SDL_Window *window;
     enum menu_type cur_menu;
 };
