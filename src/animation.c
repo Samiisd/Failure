@@ -1,4 +1,5 @@
 #include "animation.h"
+#include <stdio.h>
 
 /*  Decoupage de la feuille de sprites  */
 static void set_clips(struct clip *clip)
@@ -98,7 +99,7 @@ SDL_Surface *anim_init(struct clip *clip)
     SDL_Rect offset;
     offset.x = clip->right[clip->frame].x;
     offset.y = clip->right[clip->frame].y;
-    clip->frame++;
+    //clip->frame++;
     SDL_BlitSurface(clip->faces, &offset, idle, NULL);
     return idle;
 }
@@ -123,6 +124,6 @@ void anim_update(struct clip *clip, SDL_Surface *perso_move, enum state cur)
     {
         clip->frame = 0;
     }
-
+    printf("frame: %d move; %d\n", clip->frame, cur);
     SDL_BlitSurface(clip->faces, &offset, perso_move, NULL); // &frame &positionperso
 }
