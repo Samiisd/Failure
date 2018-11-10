@@ -2,15 +2,17 @@
 
 #include "person/person.h"
 
-static void handle_user_actions(struct game_manager *gm, struct person *chr)
+static void handle_user_actions(struct game_manager *gm,
+                                SDL_Event *event,
+                                struct person *chr)
 {
-    if (event.key.keysym.sym == SDLK_ESCAPE)
+    if (event->key.keysym.sym == SDLK_ESCAPE)
         gm->state = G_PAUSE;
-    else if (event.key.keysim.sym == SDLK_RIGHT)
+    else if (event->key.keysym.sym == SDLK_RIGHT)
         add_speed(chr->physics, 1, 0);
-    else if (event.key.keysim.sym == SDLK_LEFT)
+    else if (event->key.keysym.sym == SDLK_LEFT)
         add_speed(chr->physics, -1, 0);
-    else if (event.key.keysim.sym == SDLK_UP)
+    else if (event->key.keysym.sym == SDLK_UP)
         add_speed(chr->physics, 0, 1);
 }
 
@@ -37,7 +39,7 @@ void game_loop(struct game_manager *gm, SDL_Window *window)
             else if (event.type == SDL_KEYDOWN)
             {
                 SDL_Log("[IN_GAME] Key pressed : %d\n", event.key.keysym.sym);
-                handle_user_actions(gm, main_char);
+                handle_user_actions(gm, &event, main_char);
             }
         }
 
