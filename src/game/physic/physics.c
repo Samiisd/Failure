@@ -2,18 +2,40 @@
 #include <err.h>
 #include "physics.h"
 
+static int collision(struct map *map, struct physic_info *info)
+{
+    return get_block_type(map, info->position->x,
+                          info->position->y) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 1) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 2) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 3) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 4) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 5) == BLOCK
+        || get_block_type(map, info->position->x,
+                          info->position->y - 6) == BLOCK;
+
+}
+
+
 void physics_update(struct physic_info *info, struct map *map, double dt)
 {
     dt +=1;
-    info->position->y += info->speed->y/2;// -0.5 * GRAVITY * dt *10 + info->speed->y * dt;
-    info->speed->y -= 0.07;
-    info->position->x += info->speed->x/2;
-    info->speed->x /= 1.2;
-    if (info->speed->x)
-    if (info->position->y - 1 < 0
-        || get_block_type(map, info->position->x, info->position->y - 1)
-        || get_block_type(map, info->position->x, info->position->y - 1))
+    if (collision(map, info) && info->speed->y < 0)
         info->speed->y = 0;
+    else
+    {
+    info->position->y += info->speed->y / 2;
+    if (info->speed->y < -0.5)
+        info->speed->y = -0.33;
+    info->speed->y -= 0.07;
+    }
+    info->position->x += info->speed->x/4;
+    info->speed->x /= 1.2;
 
 }
 

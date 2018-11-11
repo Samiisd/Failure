@@ -4,13 +4,7 @@
 static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
 {
     game_init(gm, mm->renderer, "./res/maps/ground.frc");
-<<<<<<< HEAD
-    list_push(gm->persons, create_person(10, 3));
-}
-=======
-    list_push(gm->persons, create_person(10, 4));
->>>>>>> [PHYSICS] max jump set
-
+    list_push(gm->persons, create_person(10, 8));
 static void handle_user_actions(struct menu_manager *mm, SDL_Event *event)
 {
     SDL_Log("[IN_MENU] Key pressed : %d\n", event->key.keysym.sym);

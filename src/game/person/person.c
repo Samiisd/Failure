@@ -25,15 +25,14 @@ void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person
     float x = person->physics->position->x;
     float y = person->physics->position->y;
 
-    SDL_Surface* sprite = person->clip->move_cur; // person->clip->move[clip->frame];
+    SDL_Surface* sprite = person->clip->move_cur;
     if (!sprite)
         err(1, "sprite load failed");
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
     if (!texture)
         err(1, "texture texture");
-    //SDL_Rect src = {158, 209, 16, 16};
-    SDL_Rect dest = {x*16, (map->height-y)*16, 50, 50};
+    SDL_Rect dest = {x*16, (map->height-y)*16, 96, 96};
 
     SDL_Rect src = {158, 209, 16, 16};
     SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
