@@ -2,6 +2,18 @@
 #include <err.h>
 #include "physics.h"
 
+
+void jump(struct physic_info *inf)
+{
+    add_speed(inf, 0, 1);
+}
+
+void defile(struct physic_info *inf)
+{
+    add_speed(inf, -1, 0);
+}
+
+
 static int collision(struct map *map, struct physic_info *info)
 {
     return get_block_type(map, info->position->x,
@@ -21,22 +33,27 @@ static int collision(struct map *map, struct physic_info *info)
 
 }
 
-
-void physics_update(struct physic_info *info, struct map *map, double dt)
+void physics_update(struct physic_info *info, struct map *map)
 {
-    dt +=1;
     if (collision(map, info) && info->speed->y < 0)
         info->speed->y = 0;
     else
     {
-    info->position->y += info->speed->y / 2;
-    if (info->speed->y < -0.5)
-        info->speed->y = -0.33;
-    info->speed->y -= 0.07;
-    }
-    info->position->x += info->speed->x/4;
-    info->speed->x /= 1.2;
 
+        info->position->y += info->speed->y / 2;
+        if (info->speed->y < -0.5)
+            info->speed->y = -0.33;
+        info->speed->y -= 0.07;
+    }
+
+    info->position->x -= info->speed->x;
+
+    if (info->position->x < 0)
+    {
+        info->speed->x = 0;
+        info->position->x = -1;
+        info->position->y = -1;
+    }
 }
 
 void add_speed(struct physic_info *info, double x, double y)

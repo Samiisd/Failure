@@ -17,7 +17,10 @@ struct physic_info
     int collison;
 };
 
-void physics_update(struct physic_info *info, struct map *map, double dt);
+void jump(struct physic_info *inf);
+void defile(struct physic_info *inf);
+
+void physics_update(struct physic_info *info, struct map *map);
 void add_speed(struct physic_info *info, double x, double y);
 struct physic_info *init_physics(void);
 
