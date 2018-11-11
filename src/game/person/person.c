@@ -32,12 +32,8 @@ void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
     if (!texture)
         err(1, "texture texture");
-    SDL_Rect dest = {x*16, (map->height-y)*16, 96, 96};
+    SDL_Rect dest = {x*16, (map->height-y) * 16, 96, 96};
 
-    SDL_Rect src = {158, 209, 16, 16};
-    SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
-
-    SDL_RenderCopy(renderer,texture,&src,&dest);
-
-    SDL_RenderPresent(renderer);
+    SDL_RenderCopy(renderer, texture, NULL, &dest);
+    SDL_DestroyTexture(texture);
 }
