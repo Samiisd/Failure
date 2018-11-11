@@ -7,7 +7,7 @@ struct vector
     float x;
     float y;
 };
-#include "../map/map.h"
+#include "map/map.h"
 
 struct physic_info
 {

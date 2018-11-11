@@ -12,6 +12,7 @@ static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
     list_push(gm->persons, create_person(-1, -1));
     list_push(gm->persons, create_person(-1, -1));
     list_push(gm->persons, create_person(-1, -1));
+    list_push(gm->persons, create_person(-1, -1));
 }
 
 static void handle_user_actions(struct menu_manager *mm, SDL_Event *event)

@@ -1,3 +1,6 @@
+#define _XOPEN_SOURCE
+#include <stdlib.h>
+
 #include "game.h"
 
 #include "animation/animation.h"
@@ -10,10 +13,7 @@ static void handle_user_actions(struct game_manager *gm, SDL_Event *event)
     if (event->key.keysym.sym == SDLK_ESCAPE)
         gm->state = G_PAUSE;
     else if (event->key.keysym.sym == SDLK_SPACE)
-    {
-        anim_update(main_character->clip, IDLE);
         jump(main_character->physics);
-    }
 }
 
 static void update_persons_physics(struct game_manager *gm)
@@ -23,9 +23,9 @@ static void update_persons_physics(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        if (cur->physics->y == -1 || cur->physics->x == -1)
+        if (cur->physics->position->y != -1 && cur->physics->position->x != -1)
         {
-            if (cur->physics->speed->x == 0)
+            if (i > 0 && cur->physics->speed->x == 0.0)
                 defile(cur->physics);
             physics_update(cur->physics, gm->map);
         }
@@ -38,7 +38,7 @@ static void display_persons(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        if (cur->physics->y != -1 && cur->physics->x != -1)
+        if (cur->physics->position->y != -1 && cur->physics->position->x != -1)
             spawn_person(gm->renderer, gm->map, cur);
     }
 }
@@ -49,11 +49,12 @@ static void pop_random_enemies(struct game_manager *gm)
     for (size_t i = 1; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        if (cur->physics->y == -1 && cur->physics->x == -1
-            && drand48() < 0.01)
+        if (cur->physics->position->y == -1 && cur->physics->position->x == -1
+            && drand48() < 0.005)
         {
-            cur->physics->x = 480;
-            cur->physics->y = 10;
+            SDL_Log("HYPER CACA !\n");
+            cur->physics->position->x = 30;
+            cur->physics->position->y = 8;
         }
     }
 }
@@ -61,6 +62,8 @@ static void pop_random_enemies(struct game_manager *gm)
 void game_loop(struct game_manager *gm)
 {
     SDL_Event event;
+    struct person *main_character = game_get_player(gm);
+    Uint32 last_tick = SDL_GetTicks();
 
     if (gm->state == G_PAUSE)
     {
@@ -84,6 +87,13 @@ void game_loop(struct game_manager *gm)
                 SDL_Log("[IN_GAME] Key pressed : %d\n", event.key.keysym.sym);
                 handle_user_actions(gm, &event);
             }
+        }
+
+        Uint32 current_tick = SDL_GetTicks();
+        if (current_tick > last_tick + 120)
+        {
+            anim_update(main_character->clip, RIGHT);
+            last_tick = current_tick;
         }
 
         pop_random_enemies(gm);
