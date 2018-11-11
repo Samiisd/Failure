@@ -46,7 +46,7 @@ struct map *create_map(char *file_map)
     if (!file)
         return NULL;
 
-    int w = 640;
+    int w = 2048;
     int h = 480;
     struct map *map = calloc(sizeof(map), 1);
     if (!map)

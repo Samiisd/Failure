@@ -16,22 +16,22 @@ static void set_clips(struct clip *clip)
     }
 
     list_push(clip->run, SDL_LoadBMP("./res/anim/run0.bmp"));
-    list_push(clip->run, SDL_LoadBMP("./res/anim/run1.bmp"));
+    //list_push(clip->run, SDL_LoadBMP("./res/anim/run1.bmp"));
     list_push(clip->run, SDL_LoadBMP("./res/anim/run2.bmp"));
     list_push(clip->run, SDL_LoadBMP("./res/anim/run3.bmp"));
-    list_push(clip->run, SDL_LoadBMP("./res/anim/run4.bmp"));
-
+    //list_push(clip->run, SDL_LoadBMP("./res/anim/run4.bmp"));
 }
+
 static inline void hero_init(struct clip *clip)
 {
-    clip->nb_of_sprite = 5;
+    clip->nb_of_sprite = 3;
     clip->frame = 0;
     set_clips(clip);
 }
 
 static inline void vilain_init(struct clip *clip)
 {
-    clip->nb_of_sprite = 5;
+    clip->nb_of_sprite = 3;
     clip->frame = 0;
     set_clips(clip);
 }
@@ -61,7 +61,7 @@ struct clip *init_clip(enum perso_type perso_type)
 
 void anim_init(struct clip *clip)
 {
-    clip->move_cur = list_at(clip->idle, 0);
+    clip->move_cur = list_at(clip->run, 0);
     clip->frame++;
 }
 

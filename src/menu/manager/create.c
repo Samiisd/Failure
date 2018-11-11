@@ -9,7 +9,7 @@ static void init_game_window(struct menu_manager *mm)
     SDL_Window *window = SDL_CreateWindow("Ca compile on se casse !",
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
-                                          640, 480, SDL_WINDOW_SHOWN);
+                                          1792, 480, SDL_WINDOW_SHOWN);
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
                                                 SDL_RENDERER_ACCELERATED

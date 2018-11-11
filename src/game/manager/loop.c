@@ -38,7 +38,8 @@ static void display_persons(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        if (cur->physics->position->y != -1 && cur->physics->position->x != -1)
+        if (cur->physics->position->y != -1 &&
+            (cur->physics->position->x != -1 || drand48() < 0.0005))
             spawn_person(gm->renderer, gm->map, cur);
     }
 }
@@ -50,7 +51,7 @@ static void pop_random_enemies(struct game_manager *gm)
     {
         struct person *cur = list_at(gm->persons, i);
         if (cur->physics->position->y == -1 && cur->physics->position->x == -1
-            && drand48() < 0.005)
+            && drand48() < 0.001)
         {
             SDL_Log("HYPER CACA !\n");
             cur->physics->position->x = 30;
@@ -90,9 +91,9 @@ void game_loop(struct game_manager *gm)
         }
 
         Uint32 current_tick = SDL_GetTicks();
-        if (current_tick > last_tick + 120)
+        if (current_tick > last_tick + 70)
         {
-            anim_update(main_character->clip, RIGHT);
+            anim_update(main_character->clip, RUN);
             last_tick = current_tick;
         }
 

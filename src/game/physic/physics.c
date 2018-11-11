@@ -6,12 +6,12 @@
 void jump(struct physic_info *inf)
 {
     if (inf->position->y < 8)
-        inf->speed->y = 1.2;
+        inf->speed->y = 1.5;
 }
 
 void defile(struct physic_info *inf)
 {
-    add_speed(inf, 0.3, 0);
+    add_speed(inf, 0.1, 0);
 }
 
 
