@@ -61,6 +61,25 @@ The compilation is done using "make", for now there are 3 rules available :
 
 - clean : Remove all files created by other rules
 
+[OK] Game menu
+    [OK] Displaying menu choices
+    [OK] Event handler
+        [OK] Ability to switch on menus
+        [OK] Correctly handle game quit
+[OK] Game Manager
+    [OK] Basic definition
+    [OK] Game loop
+        [OK] Default behaviour (do nothing)
+        [OK] Ability to get back to the menu
+            [OK] ability to switch on pause menu
+            [OK] ability to stop the game and get back to menu
+[OK] Physics
+    [OK] Jump
+    [OK] Slice
+    [OK] Update physics on all map elem
+[OK] Music
+    [OK] On action
+    [KO] Background music
 
 # Authors :
 

@@ -78,7 +78,7 @@ static void pop_random_enemies(struct game_manager *gm)
             && drand48() < 0.008)
         {
            cur->physics->position->x = 115;
-           cur->physics->position->y = 10;
+           cur->physics->position->y = 56;
         }
     }
 }
