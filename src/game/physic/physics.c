@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <err.h>
 #include "physics.h"
+#include "../map/map.h"
 
 void physics_update(struct physic_info *info, double dt)
 {

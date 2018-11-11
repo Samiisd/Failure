@@ -1,7 +1,7 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#define GRAVITY 2
+#define GRAVITY 20
 struct vector
 {
     float x;

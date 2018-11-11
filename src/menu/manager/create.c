@@ -6,19 +6,24 @@ static void init_game_window(struct menu_manager *mm)
     SDL_DisplayMode DM;
     SDL_GetCurrentDisplayMode(0, &DM);
 
-    // Creating the game window (in full screen)
-    int res = SDL_CreateWindowAndRenderer(
-                640,
-                480,
-                SDL_WINDOW_SHOWN,
-                &(mm->window),
-                &(mm->renderer)
-                );
+    SDL_Window *window = SDL_CreateWindow("Ca compile on se casse !",
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          640, 480, SDL_WINDOW_SHOWN);
 
-    assert(res == 0);
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
+                                                SDL_RENDERER_ACCELERATED
+                                                | SDL_RENDERER_PRESENTVSYNC);
+
+    mm->window = window;
+    mm->renderer = renderer;
 
     if (!mm->window)
         errx(1, "Could not create window: %s\n", SDL_GetError());
+
+    if (!mm->renderer)
+        errx(1, "Could not create window: %s\n", SDL_GetError());
+
 }
 
 struct menu_manager *menu_manager_create(void)

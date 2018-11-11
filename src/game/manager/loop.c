@@ -60,9 +60,11 @@ void game_loop(struct game_manager *gm)
             }
         }
 
+        SDL_RenderClear(gm->renderer);
         update_persons_physics(gm);
         display_map(gm->renderer, gm->map);
         display_persons(gm);
-        SDL_RenderClear(gm->renderer);
+        SDL_RenderPresent(gm->renderer);
+
     }
 }
