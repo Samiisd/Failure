@@ -26,6 +26,7 @@ struct game_manager
     struct map *map;
     struct list *persons;
     enum game_state state;
+    Uint32 score;
 };
 
 static inline bool game_is_init(struct game_manager *gm)
@@ -39,5 +40,5 @@ static inline struct person *game_get_player(struct game_manager *gm)
 }
 
 void game_init(struct game_manager *gm, SDL_Renderer *renderer, char *map_path);
-void game_loop(struct game_manager *gm);
+void game_loop(struct menu_manager *mm,struct game_manager *gm);
 void game_stop(struct game_manager *gm);

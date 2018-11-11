@@ -7,7 +7,8 @@
 enum perso_type
 {
     HERO,
-    VILAIN
+    VILAIN,
+    CACTUS
 };
 
 enum state
@@ -25,7 +26,7 @@ struct clip
     SDL_Surface *move_cur;
 };
 
-struct clip *init_clip(enum perso_type perso_type);
+struct clip *init_clip(int perso_type);
 void anim_update(struct clip *clip, enum state cur);
 void anim_init(struct clip *clip);
 

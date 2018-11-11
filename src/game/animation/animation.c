@@ -2,42 +2,54 @@
 #include "list.h"
 #include <stdio.h>
 
-static void set_clips(struct clip *clip)
+static void set_clips(struct clip *clip, int cur)
 {
     if (!clip)
     {
         warnx("struct clip not initialized in set!");
     }
-
-    clip->run = list_init(5, NULL);
+    clip->run = list_init(clip->nb_of_sprite, NULL);
     if (!clip->run)
     {
         warnx("struct clip left or right not initialized in set!");
     }
 
-    list_push(clip->run, SDL_LoadBMP("./res/anim/run0.bmp"));
-    //list_push(clip->run, SDL_LoadBMP("./res/anim/run1.bmp"));
-    list_push(clip->run, SDL_LoadBMP("./res/anim/run2.bmp"));
-    list_push(clip->run, SDL_LoadBMP("./res/anim/run3.bmp"));
-    //list_push(clip->run, SDL_LoadBMP("./res/anim/run4.bmp"));
+    if (cur == 1)
+    {
+        list_push(clip->run, SDL_LoadBMP("./res/anim/run0.bmp"));
+        list_push(clip->run, SDL_LoadBMP("./res/anim/run2.bmp"));
+        list_push(clip->run, SDL_LoadBMP("./res/anim/run3.bmp"));
+    }
+    if (cur == 3)
+    {
+        list_push(clip->run, SDL_LoadBMP("./res/maps/img/b.bmp"));
+    }
+
 }
 
-static inline void hero_init(struct clip *clip)
+static inline void hero_init(struct clip *clip, int cur)
 {
     clip->nb_of_sprite = 3;
     clip->frame = 0;
-    set_clips(clip);
+    set_clips(clip, cur);
 }
 
-static inline void vilain_init(struct clip *clip)
+static inline void vilain_init(struct clip *clip, int cur)
 {
-    clip->nb_of_sprite = 3;
+    clip->nb_of_sprite = 1;
     clip->frame = 0;
-    set_clips(clip);
+    set_clips(clip, cur);
+}
+
+static inline void cactus_init(struct clip *clip, int cur)
+{
+    clip->nb_of_sprite = 1;
+    clip->frame = 0;
+    set_clips(clip, cur);
 }
 
 
-struct clip *init_clip(enum perso_type perso_type)
+struct clip *init_clip(int perso_type)
 {
     struct clip *clip = calloc(1, sizeof(struct clip));
     if (!clip)
@@ -46,14 +58,19 @@ struct clip *init_clip(enum perso_type perso_type)
         return NULL;
     }
 
-    if (perso_type == HERO)
+    if (perso_type == 1)
     {
-        hero_init(clip);
+        hero_init(clip, perso_type);
     }
 
-    if (perso_type == VILAIN)
+    if (perso_type == 2)
     {
-        vilain_init(clip);
+        vilain_init(clip, perso_type);
+    }
+
+    if (perso_type == 3)
+    {
+        cactus_init(clip, perso_type);
     }
 
     return clip;

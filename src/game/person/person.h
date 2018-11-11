@@ -13,7 +13,7 @@ struct person
     SDL_Surface *surface;
 };
 
-struct person *create_person(int x, int y);
+struct person *create_person(int x, int y, int cur);
 void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person);
 void destroy_person(struct person *person);
 

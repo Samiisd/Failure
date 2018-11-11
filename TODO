@@ -1,12 +1,19 @@
-[  ] Game menu
-    [  ] Displaying menu choices
-    [  ] Event handler
+[OK] Game menu
+    [OK] Displaying menu choices
+    [OK] Event handler
         [OK] Ability to switch on menus
-        [  ] Correctly handle game quit
-[  ] Game Manager
+        [OK] Correctly handle game quit
+[OK] Game Manager
     [OK] Basic definition
-    [  ] Game loop
-        [  ] Default behaviour (do nothing)
-        [  ] Ability to get back to the menu
+    [OK] Game loop
+        [OK] Default behaviour (do nothing)
+        [OK] Ability to get back to the menu
             [OK] ability to switch on pause menu
-            [  ] ability to stop the game and get back to menu
+            [OK] ability to stop the game and get back to menu
+[OK] Physics
+    [OK] Jump
+    [OK] Slice
+    [OK] Update physics on all map elem
+[OK] Music
+    [OK] On action
+    [KO] Background music

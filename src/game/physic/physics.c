@@ -5,13 +5,13 @@
 
 void jump(struct physic_info *inf)
 {
-    if (inf->position->y < 8)
-        inf->speed->y = 1.5;
+    if (inf->position->y < 7)
+        inf->speed->y = 3;
 }
 
 void defile(struct physic_info *inf)
 {
-    add_speed(inf, 0.1, 0);
+    add_speed(inf, 0.45, 0);
 }
 
 
@@ -26,11 +26,7 @@ static int collision(struct map *map, struct physic_info *info)
         || get_block_type(map, info->position->x,
                           info->position->y - 3) == BLOCK
         || get_block_type(map, info->position->x,
-                          info->position->y - 4) == BLOCK
-        || get_block_type(map, info->position->x,
-                          info->position->y - 5) == BLOCK
-        || get_block_type(map, info->position->x,
-                          info->position->y - 6) == BLOCK;
+                          info->position->y - 4) == BLOCK;
 
 }
 
@@ -42,9 +38,9 @@ void physics_update(struct physic_info *info, struct map *map)
     {
 
         info->position->y += info->speed->y / 2;
-        if (info->speed->y < -0.5)
-            info->speed->y = -0.33;
-        info->speed->y -= 0.07;
+        if (info->speed->y < -0.8)
+            info->speed->y = -0.8;
+        info->speed->y -= 0.2;
     }
 
     info->position->x -= info->speed->x;

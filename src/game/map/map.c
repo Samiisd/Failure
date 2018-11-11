@@ -65,11 +65,10 @@ struct map *create_map(char *file_map)
     map->width = w / 16;
     map->height = h / 16;
     fill_map(file, map);
-    map->surface = SDL_LoadBMP("./res/maps/img/blk.bmp");
+    map->surface = SDL_LoadBMP("./res/maps/img/blkt.bmp");
     fclose(file);
     return map;
 }
-
 
 enum tilde get_block_type(struct map *map, int x, int y)
 {
@@ -82,7 +81,7 @@ void display_map(SDL_Renderer *renderer, struct map *map)
     if (!sprite)
         err(1, "sprite load failed");
 
-    SDL_Rect blk = {sprite->w - 16, sprite->h - 16, 16, 16};
+    SDL_Rect blk = {0, 0, 16, 16};
     SDL_Rect empty = {200, 200, 16, 16};
 
 

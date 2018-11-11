@@ -1,0 +1,67 @@
+# Game introduction
+
+Almost everyone has played the classic dinosaur running game in Google Chrome,
+people have been developing dinosaur games for years but this one is from Google.
+For those of you who haven’t, here is a short introduction.
+
+There is a dinosaur over there. A T-Rex to be precise. If you hit the space bar
+at this time, the dinosaur game will begin, it is a simple game with an easy
+gameplay. You need to dodge the cactus and birds coming from the right-hand
+side by using the jump(space key) and duck(down arrow).
+
+As you dodge more and more obstacles, the gameplay gets faster and if you ever
+run into one, the game stops and the current high score gets updated.
+
+So that was all you needed to know about the game, now coming to the gameplay.
+
+WHY IS IT EVEN THERE?
+Developers working on Google Chrome found that users often get frustrated when
+the internet isn’t working. They decided to make a small time killing game for
+users to keep them occupied before the internet connection resume, Initially
+this was only available on Desktop, however, you can now play this
+on Android phones too.
+
+WHY A T-REX DINOSAUR?
+So this is a frequently asked question. There are two main reasons cited as to
+why Google used a T-Rex.
+
+REASON 1
+The first reason for choosing a T-Rex was that a T-Rex has small hands.
+This signifies that due to small hands, The T-Rex is unable to reach the internet.
+Now you might be wondering that there are other animals who have smaller hands,
+but Google seems to be obsessed with dinosaurs. Here, look a dinosaur bone
+replica made from a T-Rex’s fossils.
+
+This model rests itself in google’s campus area. so the obsession
+with dinosaur seems evident.
+
+REASON 2
+Reason 2 doesn’t hold as much ground as the first one. This reason simply
+states that if you do not have access to the internet, you are probably living
+with the dinosaurs. Since the internet has become one of the most important
+needs, not having internet means being cut off from the world and living
+as stone age men.
+
+# How playing game :
+
+- Follow instructions on menu to launch game
+
+Playing keys :
+    - 'Esc' : switch on option menu while playing
+    - 'Space' : jump
+
+# Compilation :
+
+The compilation is done using "make", for now there are 3 rules available :
+
+- all   : Compile the project, building the binary "myfind"
+
+- run : Launch the game
+        If the game is not build yet, it builds it.
+
+- clean : Remove all files created by other rules
+
+
+# Authors :
+
+Yassir Ramdani, Zachary Fakir, Sami Issaadi

@@ -4,7 +4,7 @@
 #include "map/map.h"
 #include "person/person.h"
 
-struct person *create_person(int x, int y)
+struct person *create_person(int x, int y, int cur)
 {
     struct person *p = calloc(sizeof(struct person), 1);
     if (!p)
@@ -15,7 +15,7 @@ struct person *create_person(int x, int y)
     p->physics = phy_inf;
     p->physics->position->x = x;
     p->physics->position->y = y;
-    p->clip = init_clip(HERO);
+    p->clip = init_clip(cur);
     anim_init(p->clip);
     return p;
 }
@@ -32,7 +32,7 @@ void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,sprite);
     if (!texture)
         err(1, "texture texture");
-    SDL_Rect dest = {x*16, (map->height-y) * 16, 96, 96};
+    SDL_Rect dest = {x*16, (map->height-y) * 16, 64, 64};
 
     SDL_RenderCopy(renderer, texture, NULL, &dest);
     SDL_DestroyTexture(texture);

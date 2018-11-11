@@ -6,13 +6,13 @@
 static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
 {
     game_init(gm, mm->renderer, "./res/maps/ground.frc");
-    list_push(gm->persons, create_person(10, 8));
+    list_push(gm->persons, create_person(10, 12, 1));
 
     // Add mobs
-    list_push(gm->persons, create_person(-1, -1));
-    list_push(gm->persons, create_person(-1, -1));
-    list_push(gm->persons, create_person(-1, -1));
-    list_push(gm->persons, create_person(-1, -1));
+    list_push(gm->persons, create_person(-1, -1, 3));
+    list_push(gm->persons, create_person(-1, -1, 3));
+    list_push(gm->persons, create_person(-1, -1, 3));
+    list_push(gm->persons, create_person(-1, -1, 3));
 }
 
 static void handle_user_actions(struct menu_manager *mm, SDL_Event *event)
@@ -38,6 +38,9 @@ void menu_manager_loop(struct menu_manager *mm)
     {
         while (SDL_PollEvent(&event))
         {
+            if (mm->cur_menu == MENU_OPTIONS)
+                break;
+
             if (event.type == SDL_QUIT)
                 mm->cur_menu = MENU_EXIT;
 
@@ -50,7 +53,7 @@ void menu_manager_loop(struct menu_manager *mm)
             if (!game_is_init(&gm))
                 menu_init_game(mm, &gm);
 
-            game_loop(&gm);
+            game_loop(mm, &gm);
 
             if (gm.state == G_PAUSE)
             {
@@ -61,11 +64,13 @@ void menu_manager_loop(struct menu_manager *mm)
             else if (gm.state == G_QUIT)
             {
                 game_stop(&gm);
-                mm->cur_menu = MENU_EXIT;
+                render_menu_main(mm);
+                SDL_RenderPresent(mm->renderer);
+                mm->cur_menu = MENU_MAIN;
             }
         }
 
-        if (mm->cur_menu == MENU_OPTIONS)
+        else if (mm->cur_menu == MENU_OPTIONS)
         {
             if (event.key.keysym.sym == SDLK_r)
                 mm->cur_menu = MENU_GAME;
@@ -79,12 +84,11 @@ void menu_manager_loop(struct menu_manager *mm)
                 else
                 {
                     mm->cur_menu = MENU_MAIN;
+                    SDL_RenderClear(mm->renderer);
                     render_menu_main(mm);
                     SDL_RenderPresent(mm->renderer);
                 }
             }
-            else if (event.key.keysym.sym == SDLK_r)
-                mm->cur_menu = MENU_GAME;
         }
     }
 
