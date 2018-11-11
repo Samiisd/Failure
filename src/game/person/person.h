@@ -10,6 +10,7 @@ struct person
     struct physic_info *physics;
     float health;
     SDL_Rect rect;
+    struct clip *clip;
     SDL_Surface *surface;
 };
 

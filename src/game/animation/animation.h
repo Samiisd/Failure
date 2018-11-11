@@ -14,7 +14,8 @@ enum perso_type
 enum state
 {
     LEFT,
-    RIGHT
+    RIGHT,
+    IDLE
 };
 
 struct clip
@@ -23,13 +24,13 @@ struct clip
     int SHEET_HEIGHT;
     int nb_of_sprite;
     int frame;
-    SDL_Surface *faces;
-    SDL_Surface *move_cur;
-    SDL_Rect *left;
-    SDL_Rect *right;
+    struct list *idle;
+    struct list *left;
+    struct list *right;
+   SDL_Surface *move_cur;
 };
 
-struct clip *init_clip(enum perso_type perso_type, char *path);
+struct clip *init_clip(enum perso_type perso_type);
 void anim_update(struct clip *clip, enum state cur);
 void anim_init(struct clip *clip);
 

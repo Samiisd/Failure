@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include "animation/animation.h"
 #include "person/person.h"
 
 static void handle_user_actions(struct game_manager *gm, SDL_Event *event)
@@ -9,11 +10,20 @@ static void handle_user_actions(struct game_manager *gm, SDL_Event *event)
     if (event->key.keysym.sym == SDLK_ESCAPE)
         gm->state = G_PAUSE;
     else if (event->key.keysym.sym == SDLK_RIGHT)
+    {
+        anim_update(main_character->clip, RIGHT);
         add_speed(main_character->physics, 1, 0);
+    }
     else if (event->key.keysym.sym == SDLK_LEFT)
+    {
+        anim_update(main_character->clip, LEFT);
         add_speed(main_character->physics, -1, 0);
+    }
     else if (event->key.keysym.sym == SDLK_UP)
+    {
+        anim_update(main_character->clip, IDLE);
         add_speed(main_character->physics, 0, 1);
+    }
 }
 
 static void update_persons_physics(struct game_manager *gm)
