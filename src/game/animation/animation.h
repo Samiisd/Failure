@@ -7,27 +7,22 @@
 enum perso_type
 {
     HERO,
-    VILAIN,
-    CLOUD
+    VILAIN
 };
 
 enum state
 {
-    LEFT,
-    RIGHT,
-    IDLE
+    RUN,
+    DEAD
 };
 
 struct clip
 {
-    int SHEET_WIDTH;
-    int SHEET_HEIGHT;
     int nb_of_sprite;
     int frame;
-    struct list *idle;
-    struct list *left;
-    struct list *right;
-   SDL_Surface *move_cur;
+    struct list *run;
+    struct list *dead;
+    SDL_Surface *move_cur;
 };
 
 struct clip *init_clip(enum perso_type perso_type);
