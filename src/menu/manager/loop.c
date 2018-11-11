@@ -4,8 +4,12 @@
 static void menu_init_game(struct menu_manager *mm, struct game_manager *gm)
 {
     game_init(gm, mm->renderer, "./res/maps/ground.frc");
+<<<<<<< HEAD
     list_push(gm->persons, create_person(10, 3));
 }
+=======
+    list_push(gm->persons, create_person(10, 4));
+>>>>>>> [PHYSICS] max jump set
 
 static void handle_user_actions(struct menu_manager *mm, SDL_Event *event)
 {
@@ -28,9 +32,9 @@ void menu_manager_loop(struct menu_manager *mm)
 
     while (mm->cur_menu != MENU_EXIT)
     {
-	    while (SDL_PollEvent(&event))
+            while (SDL_PollEvent(&event))
         {
-			if (event.type == SDL_QUIT)
+                        if (event.type == SDL_QUIT)
                 mm->cur_menu = MENU_EXIT;
 
             else if (event.type == SDL_KEYDOWN)

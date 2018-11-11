@@ -96,12 +96,11 @@ void display_map(SDL_Renderer *renderer, struct map *map)
             if (get_block_type(map, x, y) == BLOCK)
             {
                 SDL_RenderCopy(renderer,texture,&blk,&dest);
-
             }
             else
             {
                 SDL_RenderCopy(renderer,texture,&empty,&dest);
             }
         }
-    SDL_RenderPresent(renderer);
+    SDL_DestroyTexture(texture);
 }

@@ -32,7 +32,7 @@ static void update_persons_physics(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        physics_update(cur->physics, 0.001);
+        physics_update(cur->physics, gm->map, 0.001);
     }
 }
 

@@ -1,24 +1,34 @@
 #include <stdlib.h>
 #include <err.h>
 #include "physics.h"
-#include "../map/map.h"
 
-void physics_update(struct physic_info *info, double dt)
+void physics_update(struct physic_info *info, struct map *map, double dt)
 {
-    info->position->y += -0.5 * GRAVITY * dt * dt + info->speed->y * dt;
-    info->speed->y += -GRAVITY * dt;
-    info->position->x += info->speed->x;
-    info->speed->x = 0;
+    dt +=1;
+    info->position->y += info->speed->y/2;// -0.5 * GRAVITY * dt *10 + info->speed->y * dt;
+    info->speed->y -= 0.07;
+    info->position->x += info->speed->x/2;
+    info->speed->x /= 1.2;
+    if (info->speed->x)
+    if (info->position->y - 1 < 0
+        || get_block_type(map, info->position->x, info->position->y - 1)
+        || get_block_type(map, info->position->x, info->position->y - 1))
+        info->speed->y = 0;
+
 }
 
 void add_speed(struct physic_info *info, double x, double y)
 {
+    if (y && info->speed->y)
+        return;
+
+    info->speed->y += y;
+    info->speed->x += x;
+
     if (info->speed->x > 1)
         info->speed->x = 1;
     if (info->speed->y > 1)
         info->speed->y = 1;
-    info->speed->y += y;
-    info->speed->x += x;
 }
 
 struct physic_info *init_physics(void)
