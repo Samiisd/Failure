@@ -9,30 +9,26 @@ static void handle_user_actions(struct game_manager *gm, SDL_Event *event)
 
     if (event->key.keysym.sym == SDLK_ESCAPE)
         gm->state = G_PAUSE;
-    else if (event->key.keysym.sym == SDLK_RIGHT)
-    {
-        anim_update(main_character->clip, RIGHT);
-        add_speed(main_character->physics, 1, 0);
-    }
-    else if (event->key.keysym.sym == SDLK_LEFT)
-    {
-        anim_update(main_character->clip, LEFT);
-        add_speed(main_character->physics, -1, 0);
-    }
-    else if (event->key.keysym.sym == SDLK_UP)
+    else if (event->key.keysym.sym == SDLK_SPACE)
     {
         anim_update(main_character->clip, IDLE);
-        add_speed(main_character->physics, 0, 1);
+        jump(main_character->physics);
     }
 }
 
 static void update_persons_physics(struct game_manager *gm)
 {
     size_t nb_persons = list_size(gm->persons);
+
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        physics_update(cur->physics, gm->map, 0.001);
+        if (cur->physics->y == -1 || cur->physics->x == -1)
+        {
+            if (cur->physics->speed->x == 0)
+                defile(cur->physics);
+            physics_update(cur->physics, gm->map);
+        }
     }
 }
 
@@ -42,7 +38,23 @@ static void display_persons(struct game_manager *gm)
     for (size_t i = 0; i < nb_persons; i++)
     {
         struct person *cur = list_at(gm->persons, i);
-        spawn_person(gm->renderer, gm->map, cur);
+        if (cur->physics->y != -1 && cur->physics->x != -1)
+            spawn_person(gm->renderer, gm->map, cur);
+    }
+}
+
+static void pop_random_enemies(struct game_manager *gm)
+{
+    size_t nb_persons = list_size(gm->persons);
+    for (size_t i = 1; i < nb_persons; i++)
+    {
+        struct person *cur = list_at(gm->persons, i);
+        if (cur->physics->y == -1 && cur->physics->x == -1
+            && drand48() < 0.01)
+        {
+            cur->physics->x = 480;
+            cur->physics->y = 10;
+        }
     }
 }
 
@@ -73,6 +85,8 @@ void game_loop(struct game_manager *gm)
                 handle_user_actions(gm, &event);
             }
         }
+
+        pop_random_enemies(gm);
 
         SDL_RenderClear(gm->renderer);
         update_persons_physics(gm);
