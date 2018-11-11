@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror -std=c99 -pedantic -g $(shell sdl2-config --cflags)
-LDLIBS += $(shell sdl2-config --libs)
+LDLIBS += $(shell sdl2-config --libs) -lSDL2_ttf
 
 OBJS = src/main.o
 

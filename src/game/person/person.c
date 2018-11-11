@@ -35,5 +35,10 @@ void spawn_person(SDL_Renderer *renderer, struct map *map, struct person *person
     //SDL_Rect src = {158, 209, 16, 16};
     SDL_Rect dest = {x*16, (map->height-y)*16, 50, 50};
 
-    SDL_RenderCopy(renderer,texture,NULL,&dest);
+    SDL_Rect src = {158, 209, 16, 16};
+    SDL_Rect dest = {x*16, (map->height-y)*16, 16, 16};
+
+    SDL_RenderCopy(renderer,texture,&src,&dest);
+
+    SDL_RenderPresent(renderer);
 }

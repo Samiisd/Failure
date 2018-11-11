@@ -103,4 +103,5 @@ void display_map(SDL_Renderer *renderer, struct map *map)
                 SDL_RenderCopy(renderer,texture,&empty,&dest);
             }
         }
+    SDL_RenderPresent(renderer);
 }

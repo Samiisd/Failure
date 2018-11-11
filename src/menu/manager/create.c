@@ -32,7 +32,8 @@ struct menu_manager *menu_manager_create(void)
     assert(mm);
 
     init_game_window(mm);
-    mm->cur_menu = MAIN_MENU;
+    mm->text_font = TTF_OpenFont("res/fonts/04B_30__.TTF", 40);
+    mm->cur_menu = MENU_MAIN;
 
     return mm;
 }

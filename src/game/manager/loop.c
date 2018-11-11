@@ -55,6 +55,10 @@ void game_loop(struct game_manager *gm)
         /* RESTORE GAME STATE ...*/
         gm->state = G_RUNNING;
     }
+    else
+    {
+        SDL_RenderClear(gm->renderer);
+    }
 
     while (gm->state == G_RUNNING)
     {
@@ -75,6 +79,5 @@ void game_loop(struct game_manager *gm)
         display_map(gm->renderer, gm->map);
         display_persons(gm);
         SDL_RenderPresent(gm->renderer);
-
     }
 }
