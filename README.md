@@ -12,13 +12,15 @@ But of course, it ended up being a **T-Rex Run!** like video game.
 
 I don't know if that's funny or sad.
 
-# How playing game :
+# How to play the game :
 
 - Follow instructions on menu to launch game
 
 Playing keys :
     - 'Esc' : switch on option menu while playing
     - 'Space' : jump
+
+*You will notice the astronomical amount of game options.*
 
 # Compilation :
 
@@ -31,6 +33,7 @@ The compilation is done using "make", for now there are 3 rules available :
 
 - clean : Remove all files created by other rules
 
+```
 [OK] Game menu
     [OK] Displaying menu choices
     [OK] Event handler
@@ -50,6 +53,7 @@ The compilation is done using "make", for now there are 3 rules available :
 [OK] Music
     [OK] On action
     [KO] Background music
+```
 
 # Authors :
 
